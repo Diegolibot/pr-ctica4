@@ -3,16 +3,23 @@
 <?php
 # php can be used from command line, but I don't know how to toggle it in windows.
 
-function make_me_a_controller(array $args, string $file_content):void{
-	//remember the 1st argument is always the name
-	//lets receive a name for the controller file
+	function make_me_a_controller(array $args, string $file_content):void{
+			$file = fopen("./$args[1].php","w");
+			if($file){
+				fwrite($file,$args[1]);
+				fclose($file);
+				echo "file created";
+				if(isset($args[1])){
+					echo $args[1].PHP_EOL;
+					echo $file_content;
+			}
+			else
+				echo "Opening file failed.";
+		}else
+			echo "Dude I need a name for the file";
 
-	if(isset($args[1])){
-		echo $args[1].PHP_EOL;
-		echo $file_content;
-	}else
-		echo "Dude I need a name for the file";
-}
+	}
+
 $text = <<<HTML
 <?php
 	include "ejemplo/controllers.php";
@@ -26,3 +33,4 @@ $text = <<<HTML
 HTML;
 
 make_me_a_controller($argv,$text);
+?>
